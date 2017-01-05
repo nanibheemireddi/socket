@@ -1,3 +1,4 @@
+var name = getQueryVariable('name');
 var socket = io();
 
 socket.on('connect', function() {
@@ -6,10 +7,13 @@ socket.on('connect', function() {
 
 socket.on('message', function(message) {
 	var momentTimeStamp = moment.utc(message.timestamp);
+	var $msg = jQuery('.messages');
 	console.log('New message');
 	console.log(message.text);
 
-	jQuery('.messages').append('<p><strong>' + momentTimeStamp.local().format('h:mm a') + '<strong>' +  " " + message.text +'</p>');
+	$msg.append('<p><strong>'+ message.name + ' ' + momentTimeStamp.local().format('h:mm a') +' </strog> </p>')
+	$msg.append('<p>' + message.text +'</p>');
+	//jQuery('.messages').append('<p><strong>' + momentTimeStamp.local().format('h:mm a') + '  ' + '<strong>' + message.text +'</p>');
 });
 
 //Handles new msg submitting
@@ -22,6 +26,7 @@ $form.on('submit', function (event) {
 	var $message = $form.find('input[name=message]');
 
 	socket.emit('message', {
+		name: name,
 		text: $message.val()
 	});
 

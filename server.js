@@ -1,5 +1,6 @@
 var PORT = process.env.PORT ||3000;
 var express = require('express');
+var moment = require('moment');
 var app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -17,7 +18,9 @@ io.on('connection', function(socket) {
 	});
 
 	socket.emit('message', {
-		text: 'Welcome for chatting'
+		name: "System",
+		text: 'Welcome for chatting',
+		timestamp: moment().valueOf()
 	});
 });
 
