@@ -1,8 +1,15 @@
 var name = getQueryVariable('name');
+var room = getQueryVariable('room');
 var socket = io();
+
+jQuery('.room-title').text(room);
 
 socket.on('connect', function() {
 	console.log('connected to socket');
+	socket.emit('join room',{
+		name: name,
+		room: room
+	});
 });
 
 socket.on('message', function(message) {
