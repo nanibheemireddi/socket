@@ -71,7 +71,7 @@ io.on('connection', function(socket) {
 
 	socket.emit('message', {
 		name: "System" ,
-		text: '<strong>' + 'Welcome for the chatting' + '</strong>',
+		text: '<strong>' + 'Welcome to the chatting' + '</strong>',
 		timestamp: moment().valueOf()
 	});
 });
